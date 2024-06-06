@@ -57,7 +57,8 @@ export default {
     },
     methods: {
         savePost() {
-            this.createPostInfo.text = this.editor.getContents();
+
+            this.createPostInfo.text = this.editor.root.innerHTML;
             axios.post("/posts/create", this.createPostInfo).then((Response) => {
 
                 if (Response.data.hasError == false) {

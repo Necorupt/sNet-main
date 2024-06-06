@@ -17,10 +17,12 @@
 
         <div class="profile__posts">
             <h1> Посты</h1>
-            <div v-for="post in posts" key="id" class="profile-post">
-                <h2>{{post.title}}</h2>
-                <h4>{{post.text}}</h4>
-            </div>
+
+            <a v-for="post in posts" key="id" class="feed__post" :href="'/post/'+post.id">
+                <h2>{{ post.title }}</h2>
+                <h4>лайки {{ post.likes }}</h4>
+                <h4>комменты {{ post.comments }}</h4>
+            </a>
         </div>
     </div>
     <div v-else class="profile--not-exist">
@@ -71,13 +73,13 @@ export default {
                 this.posts = data.data;
             }
             else {
-                
+
             }
         }).catch(function (error) {
             console.log(error);
         });
 
-        
+
     },
 }
 
@@ -118,7 +120,8 @@ export default {
     }
 
     &__post{
-        
+        text-decoration: none;
+        color: white;
     }
 }
 </style>

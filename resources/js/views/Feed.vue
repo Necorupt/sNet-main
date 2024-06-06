@@ -9,27 +9,36 @@ import HeaderCmp from "../components/HeaderCmp.vue";
         <h1>Новости</h1>
 
         <div class="feed__create-post">
-            <input type="text" placeholder="title" v-model="createPostInfo.title">
-            <input type="text" placeholder="текст" v-model="createPostInfo.text">
+            <input
+                type="text"
+                placeholder="title"
+                v-model="createPostInfo.title"
+            />
+            <input
+                type="text"
+                placeholder="текст"
+                v-html="createPostInfo.text"
+            />
 
             <button @click="createPost">создать</button>
         </div>
 
         <div class="post-list">
-            <div v-for="post in posts" key="id" class="feed-post">
+            <a
+                v-for="post in posts"
+                key="id"
+                class="feed__post"
+                :href="'/post/' + post.id"
+            >
                 <h2>{{ post.title }}</h2>
-                <h4>{{ post.text }}</h4>
                 <h4>лайки {{ post.likes }}</h4>
                 <h4>комменты {{ post.comments }}</h4>
-                <button @click="likePost(post.id)">Like</button>
-            </div>
+            </a>
         </div>
     </div>
 </template>
 
 <script>
-
-
 export default {
     data() {
         return {
@@ -37,45 +46,48 @@ export default {
             posts: {},
             createPostInfo: {
                 title: "",
-                text: ""
-            }
-        }
+                text: "",
+            },
+        };
     },
     mounted() {
-        axios.get('/profile/getSelfInfo').then((Response) => {
+        axios.get("/profile/getSelfInfo").then((Response) => {
             if (Response.data.hasError == false) {
                 this.selfInfo = Response.data.data;
                 this.FetchPosts();
-            }
-            else {
-
+            } else {
             }
         });
-
     },
     methods: {
         createPost() {
-            axios.post("/posts/create", this.createPostInfo).then((Response) => {
-                console.log(Response);
+            axios
+                .post("/posts/create", this.createPostInfo)
+                .then((Response) => {
+                    console.log(Response);
 
-                if (Response.data.hasError == false) {
-                    this.posts.push(this.createPostInfo);
-                    this.createPostInfo.text = this.createPostInfo.title = "";
-                }
-            });
+                    if (Response.data.hasError == false) {
+                        this.posts.push(this.createPostInfo);
+                        this.createPostInfo.text = this.createPostInfo.title =
+                            "";
+                    }
+                });
         },
         FetchPosts() {
-            axios.get("/user/getPosts", { params: { user_id: this.selfInfo.id } }).then(
-                (Response) => {
-                    console.log(Response)
+            axios
+                .get("/user/getPosts", {
+                    params: { user_id: this.selfInfo.id },
+                })
+                .then((Response) => {
+                    console.log(Response);
                     this.posts = Response.data.data;
-                }
-            ).catch((error) => {
-                console.log(error);
-            })
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
         likePost(postId) {
-            axios.post("/posts/like", {dst_id:postId}).then((Response) => {
+            axios.post("/posts/like", { dst_id: postId }).then((Response) => {
                 console.log(Response);
 
                 if (Response.data.error) {
@@ -84,11 +96,9 @@ export default {
                 }
             });
             console.log(postId);
-        }
-
-    }
-}
-
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -106,5 +116,12 @@ export default {
     flex-direction: column;
     gap: 10px;
     padding-top: 20px;
+}
+
+.feed{
+    &__post{
+        text-decoration: none;
+        color: white;
+    }
 }
 </style>
