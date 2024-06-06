@@ -1,0 +1,53 @@
+@font-face {
+    font-family: Buenard;
+    src: url(../resources/fonts/Buenard-Regular.ttf);
+  }
+  
+
+:root {
+    --font-family: "Buenard", sans-serif;
+}
+
+.nav-menu-link{
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 48px;
+    margin:0;
+    text-decoration: none;
+    color:black;
+}
+
+h1 {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 48px;
+    margin:0;
+}
+
+h2 {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 40px;
+    margin:0;
+}
+
+h3 {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 36px;
+    margin:0;
+}
+
+h4 {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 26px;
+    margin:0;
+}
+
+h5 {
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 20px;
+    margin:0;
+}

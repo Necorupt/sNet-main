@@ -1,0 +1,21 @@
+.input--field--light {
+    width: 100%;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #7a7a7a;
+
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 40px;
+    margin: 0;
+}
+
+.button--s {
+    border-radius: 10px;
+    padding: 5px 10px;
+    font-family: var(--font-family);
+    font-weight: 400;
+    font-size: 40px;
+    margin:0;
+}
