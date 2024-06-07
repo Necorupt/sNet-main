@@ -37,6 +37,7 @@ export default {
             },
             configuration: {
                 debug: 'info',
+                syntax: true,
                 modules: {
                     toolbar: [
                         ['link', 'image', 'video', 'formula'],
@@ -53,7 +54,9 @@ export default {
         }
     },
     mounted() {
-       this.editor = new Quill(this.$refs.PostEditor, this.configuration);
+        this.editor = new Quill(this.$refs.PostEditor, this.configuration);
+        const Delta = Quill.import('delta');
+        this.editor .setContents(new Delta());
     },
     methods: {
         savePost() {

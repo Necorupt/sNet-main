@@ -17,7 +17,7 @@ class PostController extends Controller
         //$request->validate("title" => ['required', 'string', 'max:255']);
 
         $input = $request->all();
-       
+
         $post = Post::create([
             "user_id" => auth()->id(),
             "title" => $input['title'],
@@ -27,6 +27,18 @@ class PostController extends Controller
         ]);
 
         return json_encode(["hasError" => false]);
+    }
+
+    public function get(Request $request){
+        if (!$request->has("id")) {
+            return json_encode(["hasError" => true, "error" => "requers id"]);
+        }
+
+        $input = $request->all();
+        $post = Post::where('id', $input["id"]);
+
+        return json_encode(["hasError" => false, "data" => $post->get()[0]]);
+
     }
 
     public function getById(Request $request){

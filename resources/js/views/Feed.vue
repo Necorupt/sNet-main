@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import HeaderCmp from "../components/HeaderCmp.vue";
+import PostPreview from "../components/PostPreview.vue"
 </script>
 
 <template>
@@ -8,32 +9,16 @@ import HeaderCmp from "../components/HeaderCmp.vue";
     <div class="feed">
         <h1>Новости</h1>
 
-        <div class="feed__create-post">
-            <input
-                type="text"
-                placeholder="title"
-                v-model="createPostInfo.title"
-            />
-            <input
-                type="text"
-                placeholder="текст"
-                v-html="createPostInfo.text"
-            />
-
-            <button @click="createPost">создать</button>
-        </div>
-
         <div class="post-list">
-            <a
+            <PostPreview
                 v-for="post in posts"
                 key="id"
                 class="feed__post"
                 :href="'/post/' + post.id"
-            >
-                <h2>{{ post.title }}</h2>
-                <h4>лайки {{ post.likes }}</h4>
-                <h4>комменты {{ post.comments }}</h4>
-            </a>
+                :title="post.title"
+                :likes="post.likes"
+                :comments="post.comments"
+            ></PostPreview>
         </div>
     </div>
 </template>
@@ -60,19 +45,6 @@ export default {
         });
     },
     methods: {
-        createPost() {
-            axios
-                .post("/posts/create", this.createPostInfo)
-                .then((Response) => {
-                    console.log(Response);
-
-                    if (Response.data.hasError == false) {
-                        this.posts.push(this.createPostInfo);
-                        this.createPostInfo.text = this.createPostInfo.title =
-                            "";
-                    }
-                });
-        },
         FetchPosts() {
             axios
                 .get("/user/getPosts", {

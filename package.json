@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "build-ssr": "vite build && vite build --ssr" 
+        "build-ssr": "vite build && vite build --ssr"
     },
     "devDependencies": {
         "axios": "^1.6.8",
@@ -17,6 +17,7 @@
         "@editorjs/editorjs": "^2.29.1",
         "@vitejs/plugin-vue": "^5.0.4",
         "ckeditor": "^4.12.1",
+        "highlight.js": "^11.9.0",
         "quill": "^2.0.2",
         "vue": "^3.4.25",
         "vue-router": "^4.3.2"

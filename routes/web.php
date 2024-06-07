@@ -13,6 +13,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get("/profile/getSelfInfo",[UserController::class, "getSelfInfo"]);
 Route::get("/user/getUserInfoById",[UserController::class,"getUserInfoById"]);
 Route::get("/posts/getById",[PostController::class,"getById"]);
+Route::get("/posts/get",[PostController::class,"get"]);
 Route::get("/user/getFriends",[UserController::class,"getFriends"]);
 Route::get("/user/getPosts",[SubscribeController::class,"getSubcribedPost"]);
 
@@ -21,7 +22,7 @@ Route::middleware(["auth:sanctum"])->group(function(){
     Route::get('posts/', [PostController::class,"index"]);
     /*TODO REMOVE THIS*/
     Route::get("/posts/list",[PostController::class,"list"]);
-    
+
     Route::post('/posts/create', [PostController::class,"create"]);
     Route::post("/posts/like", [ActionController::class,"likePost"]);
 
