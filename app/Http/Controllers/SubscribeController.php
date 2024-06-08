@@ -5,18 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Friends;
 use App\Models\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SubscribeController extends Controller
 {
     public function getSubcribedPost(Request $request){
-        
+
         if(!$request->has("user_id")){
             return json_encode(["hasError" => true, "error" => "requers user_id"]);
         }
-        
+
         $input = $request->all();
-        
+
         $subscribedOn = Friends::where([
             ["dst_id", "=", $input["user_id"]],
             ["isSubscriber" , '=' , false],
@@ -35,13 +34,11 @@ class SubscribeController extends Controller
         }
         else
             $subList[] = $value["dst_id"];
-        
+
         }
 
-        log::debug($subList);
-
         $posts = Post::whereIn('user_id',$subList)->get();
-        
+
         return json_encode(["hasError" => false, "data" => $posts]);
     }
 }
